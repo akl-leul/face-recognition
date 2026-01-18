@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Feed Test</title>
+</head>
+<body>
+    <h1>Video Feed Test</h1>
+    <img src="/video_feed" style="width: 640px; height: 480px; border: 1px solid black;" onerror="console.error('Video feed error')" onload="console.log('Video feed loaded')">
+    <script>
+        // Test the video feed directly
+        fetch('/video_feed')
+            .then(response => {
+                console.log('Video feed response:', response);
+                console.log('Content type:', response.headers.get('content-type'));
+            })
+            .catch(error => console.error('Video feed fetch error:', error));
+    </script>
+</body>
+</html>

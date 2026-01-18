@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: face-recognition-app
+    runtime: python
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      cd react-frontend && npm install && npm run build && cd ..
+    startCommand: python run_production.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+    healthCheckPath: /api/status

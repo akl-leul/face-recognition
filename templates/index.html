@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #e8f5e8;
+            border-radius: 4px;
+        }
+        .success {
+            color: #155724;
+            background: #d4edda;
+        }
+        .error {
+            color: #721c24;
+            background: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏭 Face Recognition System</h1>
+        <div class="status">
+            <h2>System Status</h2>
+            <p>Backend is running successfully!</p>
+            <p>Camera: <span id="camera-status">Checking...</span></p>
+            <p>Recognition: <span id="recognition-status">Ready</span></p>
+            <p>Enrolled Users: <span id="user-count">Loading...</span></p>
+        </div>
+        
+        <div class="status">
+            <h2>🌐 Web Interface</h2>
+            <p>React Frontend: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+            <p>API Endpoints:</p>
+            <ul>
+                <li><strong>GET /api/status</strong> - System status</li>
+                <li><strong>POST /start_camera</strong> - Start camera</li>
+                <li><strong>POST /stop_camera</strong> - Stop camera</li>
+                <li><strong>POST /recognize</strong> - Recognize face</li>
+                <li><strong>GET /attendance</strong> - Attendance records</li>
+                <li><strong>GET /users</strong> - Enrolled users</li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            <h2>📱 Quick Actions</h2>
+            <p><a href="http://localhost:3000/camera" target="_blank">📷 Open Camera Interface</a></p>
+            <p><a href="http://localhost:3000/attendance" target="_blank">📊 View Attendance</a></p>
+            <p><a href="http://localhost:3000/users" target="_blank">👥 Manage Users</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Simple status check
+        fetch('/api/status')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('camera-status').textContent = data.camera_active ? 'Active' : 'Inactive';
+                document.getElementById('recognition-status').textContent = data.recognition_active ? 'Active' : 'Standby';
+                document.getElementById('user-count').textContent = data.enrolled_users || '0';
+            })
+            .catch(error => {
+                console.error('Status check failed:', error);
+            });
+    </script>
+</body>
+</html>
